@@ -42,7 +42,7 @@ class Adventure {
 		std::swap(grains[randomId], grains[hi]);
 	}
 
-	static Crystal findMax(std::vector<Crystal>& crystals, size_t startPos, size_t endPos) {
+	Crystal findMax(std::vector<Crystal>& crystals, size_t startPos, size_t endPos) {
 		Crystal result = Crystal(0);
 		if (startPos > endPos)
 			return result;
@@ -155,10 +155,11 @@ class TeamAdventure : public Adventure {
 
 		for (size_t item = 0; item <= eggs.size(); ++item) {
 			std::future<void> previousColumn[numberOfShamans];
-			uint64_t curSize = bag.getCapacity(), newStart = 0;
+			uint64_t newStart = 0;
 			for (size_t shaman = 0; shaman < numberOfShamans; ++shaman) {
-				uint64_t segmentLen = (curSize + 1 - newStart) / (numberOfShamans - shaman);
+				uint64_t segmentLen = (bag.getCapacity() + 1 - newStart) / (numberOfShamans - shaman);
 				previousColumn[shaman] = councilOfShamans.enqueue([&]{ dpSegment(item, newStart, newStart + segmentLen - 1, dp, from, eggs, bag); });
+				newStart += segmentLen;
 			}
 
 			for (size_t shaman = 0; shaman < numberOfShamans; ++shaman) {
@@ -193,15 +194,24 @@ class TeamAdventure : public Adventure {
 
 	Crystal selectBestCrystal(std::vector<Crystal>& crystals) override {
 		Crystal result = Crystal(0);
+		std::future<Crystal> segmentResults[numberOfShamans];
 
-		// TODO: optymalniejsze wielkosci blokow
-		size_t blockSize = (crystals.size() + numberOfShamans - 1) / numberOfShamans;
-		for (size_t curStart = 0; curStart < crystals.size(); curStart += blockSize) {
-			size_t curEnd = std::min(curStart + blockSize - 1, crystals.size() - 1);
-			Crystal blockResult = councilOfShamans.enqueue([&crystals, curStart, curEnd]{
-				return findMax(crystals, curStart, curEnd); }).get();
-			if (result < blockResult)
-				result = blockResult;
+		uint64_t newStart = 0;
+		for (size_t shaman = 0; shaman < numberOfShamans; ++shaman) {
+			uint64_t segmentLen = (crystals.size() - newStart) / (numberOfShamans - shaman);
+			uint64_t newEnd = newStart;
+			if (segmentLen > 0)
+				newEnd = newStart + segmentLen - 1;
+
+			segmentResults[shaman] = councilOfShamans.enqueue([this, &crystals, newStart, newEnd]{
+				return findMax(crystals, newStart, newEnd); });
+			newStart += segmentLen;
+		}
+
+		for (size_t shaman = 0; shaman < numberOfShamans; ++shaman) {
+			Crystal resultHere = segmentResults[shaman].get();
+			if (result < resultHere)
+				result = resultHere;
 		}
 
 		return result;
