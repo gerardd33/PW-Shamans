@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="turnstiles"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\src\;CMake Files\src\tests\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/gerardd/Desktop/PW-Shamans/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/gerardd/Desktop/PW-Shamans/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="test">
+				<Option working_dir="/home/gerardd/Desktop/PW-Shamans/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/Makefile&quot;  VERBOSE=1 test"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/gerardd/Desktop/PW-Shamans/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="crystalSelectionTest">
+				<Option output="/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/crystalSelectionTest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/gerardd/Desktop/PW-Shamans/src"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 crystalSelectionTest"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="crystalSelectionTest/fast">
+				<Option output="/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/crystalSelectionTest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/gerardd/Desktop/PW-Shamans/src"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 crystalSelectionTest/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="bottomlessBagTest">
+				<Option output="/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/bottomlessBagTest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/gerardd/Desktop/PW-Shamans/src"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 bottomlessBagTest"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="bottomlessBagTest/fast">
+				<Option output="/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/bottomlessBagTest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/gerardd/Desktop/PW-Shamans/src"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 bottomlessBagTest/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sandArrangementTest">
+				<Option output="/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/sandArrangementTest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/gerardd/Desktop/PW-Shamans/src"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 sandArrangementTest"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sandArrangementTest/fast">
+				<Option output="/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/sandArrangementTest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/gerardd/Desktop/PW-Shamans/src"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/../../../../include/c++/9.2.0/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 sandArrangementTest/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/gerardd/Desktop/PW-Shamans/src/tests/bottomlessBagTest.cpp">
+			<Option target="bottomlessBagTest"/>
+		</Unit>
+		<Unit filename="/home/gerardd/Desktop/PW-Shamans/src/tests/crystalSelectionTest.cpp">
+			<Option target="crystalSelectionTest"/>
+		</Unit>
+		<Unit filename="/home/gerardd/Desktop/PW-Shamans/src/tests/sandArrangementTest.cpp">
+			<Option target="sandArrangementTest"/>
+		</Unit>
+		<Unit filename="/home/gerardd/Desktop/PW-Shamans/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/gerardd/Desktop/PW-Shamans/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\"/>
+		</Unit>
+		<Unit filename="/home/gerardd/Desktop/PW-Shamans/src/tests/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\tests\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

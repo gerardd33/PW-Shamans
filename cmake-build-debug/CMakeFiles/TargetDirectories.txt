@@ -1,0 +1,12 @@
+/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/CMakeFiles/test.dir
+/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/CMakeFiles/rebuild_cache.dir
+/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/CMakeFiles/test.dir
+/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/CMakeFiles/edit_cache.dir
+/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/CMakeFiles/edit_cache.dir
+/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/CMakeFiles/test.dir
+/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/CMakeFiles/crystalSelectionTest.dir
+/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/CMakeFiles/rebuild_cache.dir
+/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/CMakeFiles/bottomlessBagTest.dir
+/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/src/tests/CMakeFiles/sandArrangementTest.dir
