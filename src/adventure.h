@@ -94,11 +94,9 @@ class LonesomeAdventure : public Adventure {
 			}
 		}
 
-		//std::cerr<<"\n\nRESULT: "<<dp[eggs.size()][bag.getCapacity()]<<"\nCONSTRUCTION: ";
 		uint64_t curLoad = bag.getCapacity();
 		for (int item = eggs.size(); item >= 1; --item) {
 			if (from[item][curLoad]) {
-				//std::cerr<<"("<<eggs[item - 1].getWeight()<<","<<eggs[item - 1].getSize()<<")";
 				bag.addEgg(eggs[item - 1]);
 				curLoad -= eggs[item - 1].getSize();
 			}
@@ -158,7 +156,12 @@ class TeamAdventure : public Adventure {
 			uint64_t newStart = 0;
 			for (size_t shaman = 0; shaman < numberOfShamans; ++shaman) {
 				uint64_t segmentLen = (bag.getCapacity() + 1 - newStart) / (numberOfShamans - shaman);
-				previousColumn[shaman] = councilOfShamans.enqueue([&]{ dpSegment(item, newStart, newStart + segmentLen - 1, dp, from, eggs, bag); });
+				uint64_t newEnd = newStart;
+				if (segmentLen > 0)
+					newEnd = newStart + segmentLen - 1;
+
+				previousColumn[shaman] = councilOfShamans.enqueue([this, &dp, &from, &eggs, &bag, newStart, newEnd, segmentLen, item]{
+					dpSegment(item, newStart, newEnd, dp, from, eggs, bag); });
 				newStart += segmentLen;
 			}
 
