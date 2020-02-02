@@ -42,17 +42,6 @@ class Adventure {
 		std::swap(grains[randomId], grains[hi]);
 	}
 
-	void quickSort(std::vector<GrainOfSand>& grains, size_t lo, size_t hi, std::mt19937& gen) {
-		if (lo < hi) {
-			chooseRandomPivot(grains, lo, hi, gen);
-			size_t pivot = partition(grains, lo, hi);
-
-			if (pivot != 0)
-				quickSort(grains, lo, pivot - 1, gen);
-			quickSort(grains, pivot + 1, hi, gen);
-		}
-	}
-
 	static Crystal findMax(std::vector<Crystal>& crystals, size_t startPos, size_t endPos) {
 		Crystal result = Crystal(0);
 		if (startPos > endPos)
@@ -106,12 +95,24 @@ class LonesomeAdventure : public Adventure {
   void arrangeSand(std::vector<GrainOfSand>& grains) override {
   	std::random_device rd;
   	std::mt19937 gen(rd());
-  	quickSort(grains, 0, grains.size() - 1, gen);
+  	quickSortSequential(grains, 0, grains.size() - 1, gen);
   }
 
   Crystal selectBestCrystal(std::vector<Crystal>& crystals) override {
   	return findMax(crystals, 0, crystals.size() - 1);
   }
+
+ private:
+	void quickSortSequential(std::vector<GrainOfSand>& grains, size_t lo, size_t hi, std::mt19937& gen) {
+		if (lo < hi) {
+			chooseRandomPivot(grains, lo, hi, gen);
+			size_t pivot = partition(grains, lo, hi);
+
+			if (pivot != 0)
+				quickSortSequential(grains, lo, pivot - 1, gen);
+			quickSortSequential(grains, pivot + 1, hi, gen);
+		}
+	}
 };
 
 class TeamAdventure : public Adventure {
@@ -155,20 +156,27 @@ class TeamAdventure : public Adventure {
 	void arrangeSand(std::vector<GrainOfSand>& grains) override {
 		std::random_device rd;
 		std::mt19937 gen(rd());
-		quickSort(grains, 0, grains.size() - 1, gen);
+		jobsActive = 0;
+		quickSortConcurrent(grains, 0, grains.size() - 1, gen);
+
+		{
+			std::unique_lock<std::mutex> lock(sort_mutex);
+			all_done.wait(lock, [this]{ return jobsActive == 0; });
+		}
 	}
 
 	Crystal selectBestCrystal(std::vector<Crystal>& crystals) override {
-  	Crystal result = Crystal(0);
+		Crystal result = Crystal(0);
 
-  	// TODO: optymalniejsze wielkosci blokow
-  	size_t blockSize = (crystals.size() + numberOfShamans - 1) / numberOfShamans;
-  	for (size_t curStart = 0; curStart < crystals.size(); curStart += blockSize) {
-  		Crystal blockResult = councilOfShamans.enqueue(findMax, crystals, curStart,
-  						std::min(curStart + blockSize - 1, crystals.size() - 1)).get();
-  		if (result < blockResult)
-  			result = blockResult;
-  	}
+		// TODO: optymalniejsze wielkosci blokow
+		size_t blockSize = (crystals.size() + numberOfShamans - 1) / numberOfShamans;
+		for (size_t curStart = 0; curStart < crystals.size(); curStart += blockSize) {
+			size_t curEnd = std::min(curStart + blockSize - 1, crystals.size() - 1);
+			Crystal blockResult = councilOfShamans.enqueue([&crystals, curStart, curEnd]{
+				return findMax(crystals, curStart, curEnd); }).get();
+			if (result < blockResult)
+				result = blockResult;
+		}
 
 		return result;
 	}
@@ -176,6 +184,37 @@ class TeamAdventure : public Adventure {
  private:
   uint64_t numberOfShamans;
   ThreadPool councilOfShamans;
+  int jobsActive;
+  std::condition_variable all_done;
+  std::mutex sort_mutex;
+
+	void quickSortConcurrent(std::vector<GrainOfSand>& grains, size_t lo, size_t hi, std::mt19937& gen) {
+		if (lo < hi) {
+			chooseRandomPivot(grains, lo, hi, gen);
+			size_t pivot = partition(grains, lo, hi);
+
+			if (pivot != 0) {
+				std::lock_guard<std::mutex> lock(sort_mutex);
+				++jobsActive;
+				if (hi - lo > 8) {
+					councilOfShamans.enqueue([this, &grains, lo, pivot, &gen]{ this->quickSortConcurrent(grains,
+									lo, pivot - 1, gen); });
+				}
+				quickSortConcurrent(grains, lo, pivot - 1, gen);
+			}
+
+
+				quickSortConcurrent(grains, lo, pivot - 1, gen);
+			quickSortConcurrent(grains, pivot + 1, hi, gen);
+		}
+
+		{
+			std::lock_guard<std::mutex> lock(sort_mutex);
+			if (--jobsActive == 0) {
+				all_done.notify_all();
+			}
+		}
+	}
 };
 
 #endif  // SRC_ADVENTURE_H_
