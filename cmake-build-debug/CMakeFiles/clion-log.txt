@@ -1,12 +1,6 @@
 /home/gerardd/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/192.7142.39/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/gerardd/Desktop/PW-Shamans
 -- Currnet build type: Debug
 -- Selected CXXFLAGS:   -Wall -Wunused-function -Wwrite-strings -Wformat -Wformat-security -Wparentheses -Wsequence-point -Wno-system-headers -Werror -Winit-self  -g -O0 -fstack-protector-all -D_GLIBXX_DEBUG -D_GLIBXX_DEBUG_PEDANTIC
-CMake Error at CMakeLists.txt:49 (add_executable):
-  The target name "src/adventure.cc" is reserved or not valid for certain
-  CMake features, such as generator expressions, and may result in undefined
-  behavior.
-
-
--- Configuring incomplete, errors occurred!
-See also "/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/CMakeFiles/CMakeOutput.log".
-See also "/home/gerardd/Desktop/PW-Shamans/cmake-build-debug/CMakeFiles/CMakeError.log".
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/gerardd/Desktop/PW-Shamans/cmake-build-debug

@@ -54,14 +54,10 @@ class Adventure {
 
 		return result;
 	}
-};
 
-class LonesomeAdventure : public Adventure {
- public:
-  LonesomeAdventure() {}
-
-  uint64_t packEggs(std::vector<Egg> eggs, BottomlessBag& bag) override {
+	uint64_t removeSizeless(std::vector<Egg>& eggs) {
 		uint64_t freeEggs = 0;
+
 		for (size_t i = 0; i < eggs.size(); ++i) {
 			if (eggs[i].getSize() == 0) {
 				freeEggs += eggs[i].getWeight();
@@ -69,6 +65,27 @@ class LonesomeAdventure : public Adventure {
 				eggs.pop_back();
 			}
 		}
+
+		return freeEggs;
+	}
+
+	void recreateResult(BottomlessBag& bag, std::vector<Egg>& eggs, std::vector<std::vector<bool>>& from) {
+		uint64_t curLoad = bag.getCapacity();
+		for (size_t item = eggs.size(); item >= 1; --item) {
+			if (from[item][curLoad]) {
+				bag.addEgg(eggs[item - 1]);
+				curLoad -= eggs[item - 1].getSize();
+			}
+		}
+	}
+};
+
+class LonesomeAdventure : public Adventure {
+ public:
+  LonesomeAdventure() {}
+
+  uint64_t packEggs(std::vector<Egg> eggs, BottomlessBag& bag) override {
+		uint64_t freeEggs = removeSizeless(eggs);
 
 		std::vector<std::vector<uint64_t>> dp(eggs.size() + 1);
 		std::vector<std::vector<bool>> from(eggs.size() + 1);
@@ -94,14 +111,7 @@ class LonesomeAdventure : public Adventure {
 			}
 		}
 
-		uint64_t curLoad = bag.getCapacity();
-		for (int item = eggs.size(); item >= 1; --item) {
-			if (from[item][curLoad]) {
-				bag.addEgg(eggs[item - 1]);
-				curLoad -= eggs[item - 1].getSize();
-			}
-		}
-
+		recreateResult(bag, eggs, from);
 		return dp[eggs.size()][bag.getCapacity()] + freeEggs;
 	}
 
@@ -135,14 +145,7 @@ class TeamAdventure : public Adventure {
         councilOfShamans(numberOfShamansArg) {}
 
 	uint64_t packEggs(std::vector<Egg> eggs, BottomlessBag& bag) override {
-		uint64_t freeEggs = 0;
-		for (size_t i = 0; i < eggs.size(); ++i) {
-			if (eggs[i].getSize() == 0) {
-				freeEggs += eggs[i].getWeight();
-				std::swap(eggs[i], eggs.back());
-				eggs.pop_back();
-			}
-		}
+		uint64_t freeEggs = removeSizeless(eggs);
 
 		std::vector<std::vector<uint64_t>> dp(eggs.size() + 1);
 		std::vector<std::vector<bool>> from(eggs.size() + 1);
@@ -160,7 +163,7 @@ class TeamAdventure : public Adventure {
 				if (segmentLen > 0)
 					newEnd = newStart + segmentLen - 1;
 
-				previousColumn[shaman] = councilOfShamans.enqueue([this, &dp, &from, &eggs, &bag, newStart, newEnd, segmentLen, item]{
+				previousColumn[shaman] = councilOfShamans.enqueue([this, &dp, &from, &eggs, &bag, newStart, newEnd, item]{
 					dpSegment(item, newStart, newEnd, dp, from, eggs, bag); });
 				newStart += segmentLen;
 			}
@@ -170,16 +173,7 @@ class TeamAdventure : public Adventure {
 			}
 		}
 
-		//std::cerr<<"\n\nRESULT: "<<dp[eggs.size()][bag.getCapacity()]<<"\nCONSTRUCTION: ";
-		uint64_t curLoad = bag.getCapacity();
-		for (int item = eggs.size(); item >= 1; --item) {
-			if (from[item][curLoad]) {
-				//std::cerr<<"("<<eggs[item - 1].getWeight()<<","<<eggs[item - 1].getSize()<<")";
-				bag.addEgg(eggs[item - 1]);
-				curLoad -= eggs[item - 1].getSize();
-			}
-		}
-
+		recreateResult(bag, eggs, from);
 		return dp[eggs.size()][bag.getCapacity()] + freeEggs;
 	}
 
@@ -228,9 +222,9 @@ class TeamAdventure : public Adventure {
   std::mutex sort_mutex;
   const size_t SPLITTING_CONST = 8;
 
-  void dpSegment(size_t item, size_t startPos, size_t endPos, std::vector<std::vector<uint64_t>>& dp,
+  void dpSegment(size_t item, uint64_t startPos, uint64_t endPos, std::vector<std::vector<uint64_t>>& dp,
   				std::vector<std::vector<bool>>& from, std::vector<Egg> eggs, BottomlessBag& bag) {
-  	for (size_t curLoad = startPos; curLoad <= endPos; ++curLoad) {
+  	for (uint64_t curLoad = startPos; curLoad <= endPos; ++curLoad) {
 			from[item][curLoad] = false;
 			if (item == 0 || curLoad == 0) {
 				dp[item][curLoad] = 0;
