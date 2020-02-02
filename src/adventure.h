@@ -60,7 +60,7 @@ class LonesomeAdventure : public Adventure {
  public:
   LonesomeAdventure() {}
 
-	uint64_t packEggs(std::vector<Egg> eggs, BottomlessBag& bag) override {
+  uint64_t packEggs(std::vector<Egg> eggs, BottomlessBag& bag) override {
 		uint64_t freeEggs = 0;
 		for (size_t i = 0; i < eggs.size(); ++i) {
 			if (eggs[i].getSize() == 0) {
@@ -71,21 +71,36 @@ class LonesomeAdventure : public Adventure {
 		}
 
 		std::vector<std::vector<uint64_t>> dp(eggs.size() + 1);
+		std::vector<std::vector<bool>> from(eggs.size() + 1);
 		for (auto& it : dp)
+			it.resize(bag.getCapacity() + 1);
+		for (auto& it : from)
 			it.resize(bag.getCapacity() + 1);
 
 		for (size_t item = 0; item <= eggs.size(); ++item) {
 			for (uint64_t curLoad = 0; curLoad <= bag.getCapacity(); ++curLoad) {
+				from[item][curLoad] = false;
 				if (item == 0 || curLoad == 0) {
 					dp[item][curLoad] = 0;
 					continue;
 				}
 
-				// TODO: odzyskiwanie wyniku
 				dp[item][curLoad] = dp[item - 1][curLoad];
-				if (eggs[item - 1].getSize() <= curLoad)
-					dp[item][curLoad] = std::max(dp[item][curLoad],
-																			 dp[item - 1][curLoad - eggs[item - 1].getSize()] + eggs[item - 1].getWeight());
+				uint64_t candidate = dp[item - 1][curLoad - eggs[item - 1].getSize()] + eggs[item - 1].getWeight();
+				if (eggs[item - 1].getSize() <= curLoad && candidate > dp[item][curLoad]) {
+					dp[item][curLoad] = candidate;
+					from[item][curLoad] = true;
+				}
+			}
+		}
+
+		//std::cerr<<"\n\nRESULT: "<<dp[eggs.size()][bag.getCapacity()]<<"\nCONSTRUCTION: ";
+		uint64_t curLoad = bag.getCapacity();
+		for (int item = eggs.size(); item >= 1; --item) {
+			if (from[item][curLoad]) {
+				//std::cerr<<"("<<eggs[item - 1].getWeight()<<","<<eggs[item - 1].getSize()<<")";
+				bag.addEgg(eggs[item - 1]);
+				curLoad -= eggs[item - 1].getSize();
 			}
 		}
 
@@ -122,31 +137,46 @@ class TeamAdventure : public Adventure {
         councilOfShamans(numberOfShamansArg) {}
 
 	uint64_t packEggs(std::vector<Egg> eggs, BottomlessBag& bag) override {
-  	uint64_t freeEggs = 0;
-  	for (size_t i = 0; i < eggs.size(); ++i) {
-  		if (eggs[i].getSize() == 0) {
+		uint64_t freeEggs = 0;
+		for (size_t i = 0; i < eggs.size(); ++i) {
+			if (eggs[i].getSize() == 0) {
 				freeEggs += eggs[i].getWeight();
 				std::swap(eggs[i], eggs.back());
 				eggs.pop_back();
-  		}
-  	}
+			}
+		}
 
 		std::vector<std::vector<uint64_t>> dp(eggs.size() + 1);
+		std::vector<std::vector<bool>> from(eggs.size() + 1);
 		for (auto& it : dp)
+			it.resize(bag.getCapacity() + 1);
+		for (auto& it : from)
 			it.resize(bag.getCapacity() + 1);
 
 		for (size_t item = 0; item <= eggs.size(); ++item) {
 			for (uint64_t curLoad = 0; curLoad <= bag.getCapacity(); ++curLoad) {
+				from[item][curLoad] = false;
 				if (item == 0 || curLoad == 0) {
 					dp[item][curLoad] = 0;
 					continue;
 				}
 
-				// TODO: odzyskiwanie wyniku
 				dp[item][curLoad] = dp[item - 1][curLoad];
-				if (eggs[item - 1].getSize() <= curLoad)
-					dp[item][curLoad] = std::max(dp[item][curLoad],
-																				 dp[item - 1][curLoad - eggs[item - 1].getSize()] + eggs[item - 1].getWeight());
+				uint64_t candidate = dp[item - 1][curLoad - eggs[item - 1].getSize()] + eggs[item - 1].getWeight();
+				if (eggs[item - 1].getSize() <= curLoad && candidate > dp[item][curLoad]) {
+					dp[item][curLoad] = candidate;
+					from[item][curLoad] = true;
+				}
+			}
+		}
+
+		//std::cerr<<"\n\nRESULT: "<<dp[eggs.size()][bag.getCapacity()]<<"\nCONSTRUCTION: ";
+		uint64_t curLoad = bag.getCapacity();
+		for (int item = eggs.size(); item >= 1; --item) {
+			if (from[item][curLoad]) {
+				//std::cerr<<"("<<eggs[item - 1].getWeight()<<","<<eggs[item - 1].getSize()<<")";
+				bag.addEgg(eggs[item - 1]);
+				curLoad -= eggs[item - 1].getSize();
 			}
 		}
 
