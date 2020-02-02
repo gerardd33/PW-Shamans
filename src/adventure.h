@@ -154,19 +154,15 @@ class TeamAdventure : public Adventure {
 			it.resize(bag.getCapacity() + 1);
 
 		for (size_t item = 0; item <= eggs.size(); ++item) {
-			for (uint64_t curLoad = 0; curLoad <= bag.getCapacity(); ++curLoad) {
-				from[item][curLoad] = false;
-				if (item == 0 || curLoad == 0) {
-					dp[item][curLoad] = 0;
-					continue;
-				}
+			std::future<void> previousColumn[numberOfShamans];
+			uint64_t curSize = bag.getCapacity(), newStart = 0;
+			for (size_t shaman = 0; shaman < numberOfShamans; ++shaman) {
+				uint64_t segmentLen = (curSize + 1 - newStart) / (numberOfShamans - shaman);
+				previousColumn[shaman] = councilOfShamans.enqueue([&]{ dpSegment(item, newStart, newStart + segmentLen - 1, dp, from, eggs, bag); });
+			}
 
-				dp[item][curLoad] = dp[item - 1][curLoad];
-				uint64_t candidate = dp[item - 1][curLoad - eggs[item - 1].getSize()] + eggs[item - 1].getWeight();
-				if (eggs[item - 1].getSize() <= curLoad && candidate > dp[item][curLoad]) {
-					dp[item][curLoad] = candidate;
-					from[item][curLoad] = true;
-				}
+			for (size_t shaman = 0; shaman < numberOfShamans; ++shaman) {
+				previousColumn[shaman].wait();
 			}
 		}
 
@@ -218,6 +214,24 @@ class TeamAdventure : public Adventure {
   std::condition_variable all_done;
   std::mutex sort_mutex;
   const size_t SPLITTING_CONST = 8;
+
+  void dpSegment(size_t item, size_t startPos, size_t endPos, std::vector<std::vector<uint64_t>>& dp,
+  				std::vector<std::vector<bool>>& from, std::vector<Egg> eggs, BottomlessBag& bag) {
+  	for (size_t curLoad = startPos; curLoad <= endPos; ++curLoad) {
+			from[item][curLoad] = false;
+			if (item == 0 || curLoad == 0) {
+				dp[item][curLoad] = 0;
+				continue;
+			}
+
+			dp[item][curLoad] = dp[item - 1][curLoad];
+			uint64_t candidate = dp[item - 1][curLoad - eggs[item - 1].getSize()] + eggs[item - 1].getWeight();
+			if (eggs[item - 1].getSize() <= curLoad && candidate > dp[item][curLoad]) {
+				dp[item][curLoad] = candidate;
+				from[item][curLoad] = true;
+			}
+  	}
+  }
 
 	void quickSortConcurrent(std::vector<GrainOfSand>& grains, size_t lo, size_t hi, std::mt19937& gen) {
 		if (lo < hi) {
