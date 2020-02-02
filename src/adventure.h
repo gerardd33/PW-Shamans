@@ -156,7 +156,7 @@ class TeamAdventure : public Adventure {
 	void arrangeSand(std::vector<GrainOfSand>& grains) override {
 		std::random_device rd;
 		std::mt19937 gen(rd());
-		jobsActive = 0;
+		jobsActive = 1;
 		quickSortConcurrent(grains, 0, grains.size() - 1, gen);
 
 		{
@@ -187,6 +187,7 @@ class TeamAdventure : public Adventure {
   int jobsActive;
   std::condition_variable all_done;
   std::mutex sort_mutex;
+  const size_t SPLITTING_CONST = 8;
 
 	void quickSortConcurrent(std::vector<GrainOfSand>& grains, size_t lo, size_t hi, std::mt19937& gen) {
 		if (lo < hi) {
@@ -194,17 +195,20 @@ class TeamAdventure : public Adventure {
 			size_t pivot = partition(grains, lo, hi);
 
 			if (pivot != 0) {
-				std::lock_guard<std::mutex> lock(sort_mutex);
-				++jobsActive;
-				if (hi - lo > 8) {
+				{
+					std::lock_guard<std::mutex> lock(sort_mutex);
+					++jobsActive;
+				}
+				if (hi - lo > SPLITTING_CONST) {
 					councilOfShamans.enqueue([this, &grains, lo, pivot, &gen]{ this->quickSortConcurrent(grains,
 									lo, pivot - 1, gen); });
-				}
-				quickSortConcurrent(grains, lo, pivot - 1, gen);
+				} else quickSortConcurrent(grains, lo, pivot - 1, gen);
 			}
 
-
-				quickSortConcurrent(grains, lo, pivot - 1, gen);
+			{
+				std::lock_guard<std::mutex> lock(sort_mutex);
+				++jobsActive;
+			}
 			quickSortConcurrent(grains, pivot + 1, hi, gen);
 		}
 
